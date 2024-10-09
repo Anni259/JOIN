@@ -1,0 +1,78 @@
+.sideBar {
+    position: fixed;
+    z-index: 3;
+    background: #2A3647;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 64px 0;
+    color: #CDCDCD;
+}
+
+.sideBarList {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sideBarList a {
+    width: 235px;
+    gap: 20px;
+    padding: 8px 53px;
+    text-align: center;
+    place-items: center;
+    text-decoration: none;
+    color: #CDCDCD;
+}
+
+.sideBarList a:hover {
+    background-color: #2A3D59;
+}
+
+.activeNavigationPoint, 
+.sideBarList a.activeNavigationPoint,
+.sideBarList a.activeNavigationPoint:hover {
+    background-color: #091931;
+}
+
+.sideBar .icon {
+    height: 30px;
+    width: 30px;
+}
+
+.policyAndNotice {
+    flex-direction: column;
+    text-align-last: left;
+}
+
+.policyAndNotice a {
+    width: 235px;
+    gap: 20px;
+    padding: 8px 53px;
+    text-align: center;
+    place-items: center;
+    text-decoration: none;
+    color: #CDCDCD;
+}
+
+.policyAndNotice span {
+    cursor: pointer;
+    width: 100%;
+    padding: 8px;
+    text-align: left;
+    font-weight: 400;
+    color: #A8A8A8;
+    text-align: left;
+}
+
+.policyAndNotice span:hover {
+    color: #29ABE2;
+    font-weight: 700;
+}
+
+@media screen and (max-width: 1020px) {
+    .sideBar {
+        display: none;
+    }
+}
