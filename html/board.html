@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board</title>
+    <link rel="shortcut icon" href="../assets/icons/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../css/help.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/sideBar.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/fonts.css">
+    <link rel="stylesheet" href="../css/board.css">
+    <link rel="stylesheet" href="../css/board_media.css">
+    <link rel="stylesheet" href="../css/pop_up.css">
+    <link rel="stylesheet" href="../css/add_task.css">
+    <link rel="stylesheet" href="../css/add_task_media.css">
+    <link rel="stylesheet" href="../css/mobileSideBar.css">
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+
+</head>
+
+<body onload="updateBoard(); renderContactList()" class="containerContent">
+    <aside>
+        <div w3-include-html="../assets/templates/mobileSideBar.html"></div>
+        <div w3-include-html="../assets/templates/sideBar.html"></div>
+        <script>w3.includeHTML();</script>
+    </aside>
+    <div class="text_containerBoard">
+        <section>
+            <div class="headlineBoard">
+                <h1>Board</h1>
+                <div class="searchButtonContainer">
+                    <div class="search-container">
+                        <input type="text" class="searchBar" placeholder="Find Task">
+                        <img src="../assets/icons/I.svg" alt="Divider Icon" class="divider-icon">
+                        <div class="search-icon-container" onclick="searchTasks()">
+                            <img src="../assets/icons/search.svg" alt="Search Icon" class="search-icon">
+                        </div>
+                    </div>
+                    <button class="addTaskButton" onclick="openPopupAddTask()">
+                        <span>Add task</span>
+                        <img src="../assets/icons/plus.svg">
+                    </button>
+                </div>
+            </div>
+        </section>
+        <div class="boardContent">
+            <div class="headlineBoardSmall">
+                <div class="headlineAndPlusButton">To do
+                    <button class="plusButton" onclick="openPopupAddTask()">
+                        <img src="../assets/icons/plus button.svg">
+                    </button>
+                </div>
+                <div class="drag-area" data-status="toDo" id="toDo" ondrop="dropToDo(event)" ondragover="allowDrop(event);"
+                    ondragleave="dragLeave(event)"></div>
+                <div class="drop-target"></div>
+            </div>
+            <div class="headlineBoardSmall">
+                <div class="headlineAndPlusButton">In progress
+                    <button class="plusButton" onclick="openPopupAddTask('inProgress')">
+                        <img src="../assets/icons/plus button.svg">
+                    </button>
+                </div>
+                <div class="drag-area" data-status="inProgress" id="inProgress" ondrop="dropInProgress(event)" ondragover="allowDrop(event);"
+                    ondragleave="dragLeave(event)"></div>
+                <div class="drop-target"></div>
+            </div>
+            <div class="headlineBoardSmall">
+                <div class="headlineAndPlusButton">Await feedback
+                    <button class="plusButton" onclick="openPopupAddTask('await')">
+                        <img src="../assets/icons/plus button.svg">
+                    </button>
+                </div>
+                <div class="drag-area" id="awaitFeedback" data-status="await" ondrop="dropAwait(event)" ondragover="allowDrop(event);"
+                    ondragleave="dragLeave(event)"></div>
+                <div class="drop-target"></div>
+            </div>
+            <div class="headlineBoardSmall">
+                <div class="headlineAndPlusButton">Done</div>
+                <div class="drag-area" id="done" data-status="done" ondrop="dropDone(event)" ondragover="allowDrop(event);"
+                    ondragleave="dragLeave(event)"></div>
+                <div class="drop-target"></div>
+            </div>
+            <!-- Pop up for add Task Button-->
+            <div id="popupOverlay" class="popup-overlay" onclick="closePopupAddTask()"></div>
+            <div id="popupModal" class="popup-modal">
+                <div class="closeContainer">
+                    <img class="close" onclick="closePopupAddTask()" src="../assets/icons/close.svg">
+                </div>
+
+                <h1>Add Task</h1>
+                <!-- Pop up -->
+                <form id="addTaskForm" method="post">
+                    <div class="flex formPartsPopUp">
+                        <section class="formPart flex">
+                            <label for="title">Title<span class="requiredStar">*</span></label>
+                            <input type="text" id="title" placeholder="Enter a title" required>
+                            <br>
+                            <label for="description">Description</label>
+                            <textarea id="description" rows="5" placeholder="Enter a Description"></textarea>
+                            <br>
+                            <label for="contactSelection">Assigned to</label>
+                            <div id="contactSelection" onclick="toggleContactListViewAddTask()" tabindex="0">
+                                Select contacts to assign
+                            </div>
+                            <div id="contactList" class="hidden flex"></div>
+                        </section>
+                        <hr id="seperationLinePopUp">
+                        </hr>
+                        <section class="formPart flex">
+                            <label for="dueDate">Due Date<span class="requiredStar">*</span></label>
+                            <input type="date" id="date">
+                            <br>
+                            <label for="prio">Prio</label>
+                            <section id="prio" class="flex">
+                                <button onclick="setPriority('urgent', -1, 'prio')" value="urgent" id="prioUrgentEdit"
+                                    type="button">Urgent<img id="prioUrgentImgEdit"
+                                        src="../assets/icons/prioUrgent.svg"></button>
+                                <button onclick="setPriority('medium', -1, 'prio')" value="medium" id="prioMediumEdit"
+                                    type="button" class="prioMediumActive">Medium<img id="prioMediumImgEdit"
+                                        src="../assets/icons/prioMediumSelected.svg"></button>
+                                <button onclick="setPriority('low', -1, 'prio')" value="low" id="prioLowEdit"
+                                    type="button">Low<img id="prioLowImgEdit"
+                                        src="../assets/icons/prioLow.svg"></button>
+                            </section>
+                            <br>
+                            <label for="category">Category<span class="requiredStar">*</span></label>
+                            <select id="category" required tabindex="0">
+                                <option value="" disabled selected hidden>Select Task Category</option>
+                                <option value="Technical Task">Technical Task</option>
+                                <option value="User Story">User Story</option>
+                            </select>
+                            <br>
+                            <label for="subtask">Subtasks</label>
+                            <div id="addSubTask" class="flex">
+                                <input id="subtask" class="addSubTask" placeholder="Add new subtask" type="text">
+                                <img onclick="addSubtask()" style="cursor:pointer" src="../assets/icons/addSubtask.svg">
+                            </div>
+                            <ul id="subTasksList">
+                            </ul>
+                        </section>
+                    </div>
+                    <div class="taskFormButtonsPopUp flex">
+                        <p><span class="requiredStar">*</span>This field is required</p>
+                        <div class="flex">
+                            <button onclick="resetAddTask()" type="reset" class="button clearBtn">Clear <img
+                                    src="../assets/icons/cancel.svg" alt="Icon clear task"></button>
+                            <button type="submit" class="button">Create Task<img src="../assets/icons/create.svg"
+                                    alt="Icon create task"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Pop up for boardCards-->
+            <div id="popupOverlayCard" class="popup-overlay" onclick="closePopupCard()"></div>
+            <div id="popupModalCard" class="popup-modal-card"></div>
+            <!-- Pop up Task added to board -->
+            <div id="popupOverlay1" class="popup-overlay1">
+                <div id="popupContactSuccessAddedTaskButton">
+                    <p>Task added to board
+                        <img src="../assets/icons/board.svg">
+                    </p>
+                </div>
+            </div>
+            <!-- Pop up for boardCardsEdit-->
+            <div id="popupOverlayCardEdit" class="popup-overlay-edit" onclick="closePopupCardEdit()"></div>
+            <div id="popupModalCardEdit" class="popup-modal-card-edit"></div>
+        </div>
+        <!-- damit die console nicht nervt -->
+        <form id="addTaskFormTask">
+        <script src="../js/firebase.js"></script>
+        <script src="../js/generateHTML.js"></script>
+        <script src="../js/addTask.js"></script>
+        <script src="../js/board.js"></script>
+        <script src="../js/header.js"></script>
+        <script src="../script.js"></script>
+        <script src="../js/dragAndDrop.js"></script>
+        <script src="../js/popup.js"></script>
+        <script src="../js/sideBar.js"></script>
+        <script src="../js/search.js"></script>
+        <script src="../js/subtasks.js"></script>
+        <script src="../js/mobileBoard.js"></script>
+</body>
+
+</html>
