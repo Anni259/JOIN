@@ -1,5 +1,5 @@
-# JOIN
-
+<h1>JOIN</h1>
+<img src="https://github.com/Anni259/JOIN/blob/main/join.png">
 <h2>What is Join?</h2>
         <p>
             <span class="join">Join</span> is a kanban-based project management tool designed and built by a group of dedicated students as part of their web development bootcamp at the Developer Akademie.
