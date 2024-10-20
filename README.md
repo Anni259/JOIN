@@ -2,7 +2,7 @@
 <img src="https://github.com/Anni259/JOIN/blob/main/join.png">
 <h2>What is Join?</h2>
         <p>
-            <span class="join">Join</span> is a kanban-based project management tool designed and built by a group of dedicated students as part of their web development bootcamp at the Developer Akademie.
+            <span class="join">Join</span> is a kanban-based project management tool designed and built by me and a team-member as part of our web development bootcamp at the Developer Akademie.
             <br>
             <br>
             Kanban, a Japanese term meaning "billboard", is a highly effective method to visualize work, limit work-in-progress, and maximize efficiency (or flow). 
