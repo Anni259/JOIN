@@ -47,6 +47,6 @@
                     the current state of your project.
                     <br>
                     <br>
-                    Have more questions about <span class="join">Join</span>? Feel free to contact us at [Your Contact Email]. We're here to help you!
+                    Have more questions about <span class="join">Join</span>? Feel free to contact me at anica.gillen@gmx.de. I am here to help you!
                 </p>
         <h2>Enjoy using Join!</h2>
